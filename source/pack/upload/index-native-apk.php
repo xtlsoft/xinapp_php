@@ -1,3 +1,4 @@
+<?php //
 include '../../system/db.class.php';
 include '../../system/user.php';
 include 'deapk/examples/autoload.php';
@@ -17,7 +18,7 @@ $apk = new \ApkParser\Parser($tmp);
 $xml_mnvs = SafeSql($apk->getManifest()->getMinSdkLevel());
 $xml_bid = SafeSql($apk->getManifest()->getPackageName());
 $xml_bsvs = SafeSql($apk->getManifest()->getVersionName());
-$xml_bvs = SafeSql($apk->getManifest()->getVersionCode());
+$xml_bvs = SafeSql($apk->getManifest()->getVersionCode(a));
 $labelResourceId = $apk->getManifest()->getApplication()->getLabel();
 $appLabel = $apk->getResources($labelResourceId);
 $xml_name = SafeSql(detect_encoding($appLabel[0]));
