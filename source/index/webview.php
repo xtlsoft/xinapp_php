@@ -29,13 +29,7 @@ if (!defined('IN_ROOT')) {
         var allin = true;
 
         function change(type) {
-            // if (type == 1) {
-            //     $("#webview").hide();
-            //     $("#mobileconfig").show();
-            // } else {
-            //     $("#webview").show();
-            //     $("#mobileconfig").hide();
-            // }
+
             if (type == 0) {
                 allin = false;
                 $("#android").hide();
@@ -102,22 +96,7 @@ if (!defined('IN_ROOT')) {
                                                onblur="if(!value.match(/^https?:///)){value='http://'+value}">
                                     </div>
                                 </div>
-                                <div class="field app-name">
-                                    <div class="value">
-                                        <input type="text" placeholder="顶部颜色" id="in_b_color"
-                                               onmousedown="$(this).colpick({layout:'hex',submit:0,colorScheme:'dark',onChange:function(hsb,hex,rgb,el,bySetColor){if(!bySetColor)$(el).val(hex);}}).keyup(function(){$(this).colpickSetColor(this.value);})"
-                                               onkeyup="value=value.replace(/[W|_]/g,'')"
-                                               onblur="value=value.replace(/[W|_]/g,'')">
-                                    </div>
-                                </div>
-                                <div class="field app-name">
-                                    <div class="value">
-                                        <input type="text" placeholder="标题颜色" id="in_t_color"
-                                               onmousedown="$(this).colpick({layout:'hex',submit:0,colorScheme:'dark',onChange:function(hsb,hex,rgb,el,bySetColor){if(!bySetColor)$(el).val(hex);}}).keyup(function(){$(this).colpickSetColor(this.value);})"
-                                               onkeyup="value=value.replace(/[W|_]/g,'')"
-                                               onblur="value=value.replace(/[W|_]/g,'')">
-                                    </div>
-                                </div>
+
                                 <div class="field app-short">
                                     <div class="value">
                                         <div class="apps-app-security" id="preview_a_icon">
@@ -178,7 +157,7 @@ if (!defined('IN_ROOT')) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="app-info-form" id="android">
+                            <div class="app-info-form" id="android" style="display: none">
                                 <div class="field app-name">
                                     <div class="value">
                                         <input type="text" placeholder="应用名称" id="apk_title">
@@ -204,10 +183,10 @@ if (!defined('IN_ROOT')) {
                                 </div>
                                 <div class="field app-short">
                                     <div class="value">
-                                        <div class="apps-app-security" id="preview_l_image">
-                                            <input type="file" id="upload_l_image" onchange="upload_l_image1()"
+                                        <div class="apps-app-security" id="preview_l_image1">
+                                            <input type="file" id="upload_l_image1" onchange="upload_l_image1()"
                                                    style="display:none">
-                                            <div class="btn-invite-member" id="tips_l_image"
+                                            <div class="btn-invite-member" id="tips_l_image1"
                                                  onclick="$('#upload_l_image1').click()">上传启动图片
                                             </div>
                                         </div>

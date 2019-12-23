@@ -156,14 +156,7 @@ function web_view() {
         $("#in_url").focus();
         return;
     }
-    if ($("#in_b_color").val() == "") {
-        $("#in_b_color").focus();
-        return;
-    }
-    if ($("#in_t_color").val() == "") {
-        $("#in_t_color").focus();
-        return;
-    }
+
     if ($("#preview_a_icon img").length < 1) {
         layer.msg("请上传应用图标！");
         return;
@@ -173,7 +166,7 @@ function web_view() {
         return;
     }
     $(".ng-binding").attr("disabled", "disabled").text("生成中...");
-    xhr.open("GET", in_path + "source/pack/webview/ajax.php?ac=webview&title=" + escape($("#in_title").val()) + "&url=" + $("#in_url").val() + "&bcolor=" + $("#in_b_color").val() + "&tcolor=" + $("#in_t_color").val() + "&aicon=" + $("#preview_a_icon img")[0].src + "&limage=" + $("#preview_l_image img")[0].src, true);
+    xhr.open("GET", in_path + "source/pack/webview/ajax.php?ac=webview&title=" + escape($("#in_title").val()) + "&url=" + $("#in_url").val() /*+ "&bcolor=" + $("#in_b_color").val() + "&tcolor=" + $("#in_t_color").val()*/ + "&aicon=" + $("#preview_a_icon img")[0].src + "&limage=" + $("#preview_l_image img")[0].src, true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
@@ -194,11 +187,15 @@ function web_view() {
 }
 
 function ReturnValue(response) {
+    response = eval("(" + response + ")");
+    var allOK = 0;
+    var ipa_time = response.ipa;
+    var apk_time = response.time;
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         processAJAX();
     };
-    xhr.open("GET", in_path + "source/pack/upload/index-ipa.php?time=" + response + "&id=0", true);
+    xhr.open("GET", in_path + "source/pack/upload/index-ipa.php?time=" + ipa_time + "&id=0", true);
     xhr.send(null);
 
     function processAJAX() {
@@ -215,7 +212,45 @@ function ReturnValue(response) {
                 } else if (xhr.responseText == -6) {
                     $(".ng-binding").text("安装包不一致，无法覆盖！");
                 } else if (xhr.responseText == 1) {
-                    location.href = in_path + "index.php/home";
+                    allOK++
+                    if (allOK >= 2){
+                        location.href = in_path + "index.php/home";
+                    }
+
+                } else {
+                    $(".ng-binding").text("内部出现错误，请稍后再试！");
+                }
+            }
+        }
+    }
+
+    var xhr1 = new XMLHttpRequest();
+    xhr1.onreadystatechange = function () {
+        processAJAX1();
+    };
+    xhr1.open("GET", in_path + "source/pack/upload/index-native-" + response.extension + ".php?time=" + apk_time + "&size=" + response.size + "&id=0", true);
+    xhr1.send(null);
+
+    function processAJAX1() {
+        if (xhr1.readyState == 4) {
+            if (xhr1.status == 200) {
+                if (xhr1.responseText == -1) {
+                    $(".ng-binding").text("请先登录后再操作！");
+                } else if (xhr1.responseText == -2 || xhr1.responseText == -5) {
+                    $(".ng-binding").text("Access denied");
+                } else if (xhr1.responseText == -3) {
+                    $(".ng-binding").text("未进行实名认证或认证审核中！");
+                } else if (xhr1.responseText == -4) {
+                    $(".ng-binding").text("应用容量不足！");
+                } else if (xhr1.responseText == -6) {
+                    $(".ng-binding").text("安装包不一致，无法覆盖！");
+                } else if (xhr1.responseText >= 1) {
+
+                    allOK++;
+                    if (allOK >=2 ) {
+                        location.href = in_path + "index.php/home";
+                    }
+
                 } else {
                     $(".ng-binding").text("内部出现错误，请稍后再试！");
                 }
