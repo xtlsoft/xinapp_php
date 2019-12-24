@@ -168,28 +168,6 @@ function change(type) {
                                            onblur="if(!value.match(/^https?:\\/\\//)){value='http://'+value}">
                                 </div>
                             </div>
-                            <div class="field app-short">
-                                <div class="value">
-                                    <div class="apps-app-security" id="preview_apk_a_icon">
-                                        <input type="file" id="upload_apk_a_icon" onchange="upload_apk_a_icon()"
-                                               style="display:none">
-                                        <div class="btn-invite-member" id="tips_apk_a_icon"
-                                             onclick="$('#upload_apk_a_icon').click()">上传应用图标
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="field app-short">
-                                <div class="value">
-                                    <div class="apps-app-security" id="preview_l_image1">
-                                        <input type="file" id="upload_l_image1" onchange="upload_l_image1()"
-                                               style="display:none">
-                                        <div class="btn-invite-member" id="tips_l_image1"
-                                             onclick="$('#upload_l_image1').click()">上传启动图片
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <hr>
                             <div class="field actions">
                                 <div class="value">
