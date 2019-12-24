@@ -22,15 +22,37 @@ if (!defined('IN_ROOT')) {
 <script type="text/javascript" src="<?php echo IN_PATH;?>static/pack/colpick/colpick.js"></script>
 <script type="text/javascript" src="<?php echo IN_PATH;?>static/pack/webview/lib.js"></script>
 <script type="text/javascript" src="<?php echo IN_PATH;?>static/pack/mobileconfig/lib.js"></script>
+<script type="text/javascript" src="<?php echo IN_PATH; ?>static/pack/android/lib.js"></script>
 <script type="text/javascript">
 var in_path = '<?php echo IN_PATH;?>';
 var in_login = <?php echo $GLOBALS['userlogined'] ?'1': '-1';?>;
 function change(type) {
-    if (type == 1) {
+    // if (type == 1) {
+    //     $("#webview").hide();
+    //     $("#mobileconfig").show();
+    // } else {
+    //     $("#webview").show();
+    //     $("#mobileconfig").hide();
+    // }
+    if (type == 0) {
+        allin = false;
+        $("#android").hide();
+        $("#webview").show();
+        $("#mobileconfig").hide();
+    } else if (type == 1) {
+        allin = false;
+        $("#android").hide();
         $("#webview").hide();
         $("#mobileconfig").show();
-    } else {
-        $("#webview").show();
+    } else if (type == 2) {
+        allin = false;
+        $("#android").show();
+        $("#webview").hide();
+        $("#mobileconfig").hide();
+    } else if (type == 3) {
+        allin = true;
+        $("#android").show();
+        $("#webview").hide();
         $("#mobileconfig").hide();
     }
 }
@@ -56,8 +78,10 @@ function change(type) {
 						<div class="app-info-form">
 							<div class="field app-name">
 								<div class="value">
-									<input type="radio" name="mc_type" onclick="change(0)" checked>&nbsp;标准封装&nbsp;&nbsp;
+                                    <input type="radio" name="mc_type" onclick="change(3)" checked>&nbsp;一键封装免签+安卓&nbsp;&nbsp;
+                                    <input type="radio" name="mc_type" onclick="change(0)" checked>&nbsp;标准封装&nbsp;&nbsp;
 									<input type="radio" name="mc_type" onclick="change(1)">&nbsp;免签封装
+									<input type="radio" name="mc_type" onclick="change(2)">&nbsp;安卓封装
 								</div>
 							</div>
 						</div>
@@ -131,6 +155,48 @@ function change(type) {
 								</div>
 							</div>
 						</div>
+                        <div class="app-info-form" id="android" style="display: none">
+                            <div class="field app-name">
+                                <div class="value">
+                                    <input type="text" placeholder="应用名称" id="apk_title">
+                                </div>
+                            </div>
+                            <div class="field app-name">
+                                <div class="value">
+                                    <input type="text" placeholder="域名地址" id="apk_url"
+                                           onkeyup="if(!value.match(/^https?:\\/\\//)){value='http://'+value}"
+                                           onblur="if(!value.match(/^https?:\\/\\//)){value='http://'+value}">
+                                </div>
+                            </div>
+                            <div class="field app-short">
+                                <div class="value">
+                                    <div class="apps-app-security" id="preview_apk_a_icon">
+                                        <input type="file" id="upload_apk_a_icon" onchange="upload_apk_a_icon()"
+                                               style="display:none">
+                                        <div class="btn-invite-member" id="tips_apk_a_icon"
+                                             onclick="$('#upload_apk_a_icon').click()">上传应用图标
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field app-short">
+                                <div class="value">
+                                    <div class="apps-app-security" id="preview_l_image1">
+                                        <input type="file" id="upload_l_image1" onchange="upload_l_image1()"
+                                               style="display:none">
+                                        <div class="btn-invite-member" id="tips_l_image1"
+                                             onclick="$('#upload_l_image1').click()">上传启动图片
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="field actions">
+                                <div class="value">
+                                    <button class="save ng-binding mc-btn" onclick="android_config()">一键封装</button>
+                                </div>
+                            </div>
+                        </div>
 					</div>
 				</div>
 			</div>
