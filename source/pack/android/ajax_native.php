@@ -32,6 +32,9 @@ if ($ac == 'android') {
     for ($i = 0; $i < 4; $i++) {
         image_crop($ax[$i], $ax[$i], $aicon, $dir . '/' . $time . '/' . 'AgentWebX5' . '/sample/src/main/' . 'res/' . $ay[$i] . '/app_logo.png');
     }
+    for ($i = 0; $i < 4; $i++) {
+        image_crop($ax[$i], $ax[$i], $limage, $dir . '/' . $time . '/' . 'AgentWebX5' . '/sample/src/main/' . 'res/' . $ay[$i] . '/w1x.png');
+    }
 
     //$bid = 'a' . substr(md5($time), 8, 16);
 
